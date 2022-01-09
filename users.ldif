@@ -1,0 +1,189 @@
+#########################################################
+# MICROSOFT SCHEMA for sAMAccountName and memberOf
+# these two attributes are not defined in Apache Directory Server
+#########################################################
+
+dn: cn=microsoft, ou=schema
+objectclass: metaSchema
+objectclass: top
+cn: microsoft
+
+dn: ou=attributetypes, cn=microsoft, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: attributetypes
+
+dn: m-oid=1.2.840.113556.1.4.221, ou=attributetypes, cn=microsoft, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.2.840.113556.1.4.221
+m-name: sAMAccountName
+m-equality: caseIgnoreMatch
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
+m-singleValue: TRUE
+
+dn: m-oid=1.2.840.113556.1.4.222, ou=attributetypes, cn=microsoft, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.2.840.113556.1.4.222
+m-name: memberOf
+m-equality: caseIgnoreMatch
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
+m-singleValue: FALSE
+
+dn: m-oid=1.2.840.113556.1.4.223, ou=attributetypes, cn=microsoft, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.2.840.113556.1.4.223
+m-name: objectCategory
+m-equality: caseIgnoreMatch
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
+m-singleValue: TRUE
+
+dn: ou=objectclasses, cn=microsoft, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: objectClasses
+
+dn: m-oid=1.2.840.113556.1.5.6, ou=objectclasses, cn=microsoft, ou=schema
+objectclass: metaObjectClass
+objectclass: metaTop
+objectclass: top
+m-oid: 1.2.840.113556.1.5.6
+m-name: simulatedMicrosoftSecurityPrincipal
+m-supObjectClass: top
+m-typeObjectClass: AUXILIARY
+m-must: sAMAccountName
+m-may: memberOf
+m-must: objectCategory
+
+##############################################################################################
+# Domain
+##############################################################################################
+dn: dc=perit,dc=hu
+dc: perit
+objectClass: top
+objectClass: domain
+
+##############################################################################################
+# OU=Users
+##############################################################################################
+dn: ou=Users,dc=perit,dc=hu
+objectClass: organizationalUnit
+objectClass: top
+ou: Users
+
+##############################################################################################
+# OU=Security Groups
+##############################################################################################
+dn: ou=Security Groups,dc=perit,dc=hu
+objectClass: organizationalUnit
+objectClass: top
+ou: Security Groups
+
+
+##############################################################################################
+# Security Groups
+##############################################################################################
+
+dn: CN=Admin,OU=Security Groups,DC=perit,DC=hu
+objectClass: top
+objectClass: groupOfNames
+cn: Admin
+member: uid=adadmin,ou=Users,dc=perit,dc=hu
+
+dn: CN=Editor,OU=Security Groups,DC=perit,DC=hu
+objectClass: top
+objectClass: groupOfNames
+cn: Editor
+member: uid=adadmin,ou=Users,dc=perit,dc=hu
+member: uid=adeditor,ou=Users,dc=perit,dc=hu
+
+dn: CN=Approver,OU=Security Groups,DC=perit,DC=hu
+objectClass: top
+objectClass: groupOfNames
+cn: Approver
+member: uid=adadmin,ou=Users,dc=perit,dc=hu
+member: uid=adeditor,ou=Users,dc=perit,dc=hu
+member: uid=adapprover,ou=Users,dc=perit,dc=hu
+
+dn: CN=Viewer,OU=Security Groups,DC=perit,DC=hu
+objectClass: top
+objectClass: groupOfNames
+cn: Viewer
+member: uid=adadmin,ou=Users,dc=perit,dc=hu
+member: uid=adeditor,ou=Users,dc=perit,dc=hu
+member: uid=adapprover,ou=Users,dc=perit,dc=hu
+member: uid=adviewer,ou=Users,dc=perit,dc=hu
+
+
+
+##############################################################################################
+# Users
+##############################################################################################
+
+# adadmin
+dn: uid=adadmin,ou=Users,dc=perit,dc=hu
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: simulatedMicrosoftSecurityPrincipal
+objectCategory: User
+cn: Admin User
+sn: adadmin
+uid: adadmin
+sAMAccountName: adadmin
+#userPrincipalName: adadmin@perit.hu
+userPassword: adadmin
+memberOf: CN=Admin,OU=Security Groups,DC=perit,DC=hu
+memberOf: CN=Editor,OU=Security Groups,DC=perit,DC=hu
+memberOf: CN=Approver,OU=Security Groups,DC=perit,DC=hu
+memberOf: CN=Viewer,OU=Security Groups,DC=perit,DC=hu
+
+# adeditor
+dn: uid=adeditor,ou=Users,dc=perit,dc=hu
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: simulatedMicrosoftSecurityPrincipal
+objectCategory: User
+cn: Editor User
+sn: adeditor
+uid: adeditor
+sAMAccountName: adeditor
+userPassword: adeditor
+memberOf: CN=Editor,OU=Security Groups,DC=perit,DC=hu
+memberOf: CN=Approver,OU=Security Groups,DC=perit,DC=hu
+memberOf: CN=Viewer,OU=Security Groups,DC=perit,DC=hu
+
+# adapprover
+dn: uid=adapprover,ou=Users,dc=perit,dc=hu
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: simulatedMicrosoftSecurityPrincipal
+objectCategory: User
+cn: Approver User
+sn: adapprover
+uid: adapprover
+sAMAccountName: adapprover
+userPassword: adapprover
+memberOf: CN=Approver,OU=Security Groups,DC=perit,DC=hu
+memberOf: CN=Viewer,OU=Security Groups,DC=perit,DC=hu
+
+# adviewer
+dn: uid=adviewer,ou=Users,dc=perit,dc=hu
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: simulatedMicrosoftSecurityPrincipal
+objectCategory: User
+cn: Viewer User
+sn: adviewer
+uid: adviewer
+sAMAccountName: adviewer
+userPassword: adviewer
+memberOf: CN=Viewer,OU=Security Groups,DC=perit,DC=hu
