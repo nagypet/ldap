@@ -1,16 +1,14 @@
-FROM alpine:3.12
+FROM openjdk:8u111-jre-alpine
 
-MAINTAINER Peter Nagy "peter.nagy@perit.hu"
+LABEL org.opencontainers.image.authors="peter.nagy@perit.hu"
 
 VOLUME /tmp
 
-RUN apk add mc --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
-RUN apk add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 RUN apk add --no-cache tzdata
 
 # setting image timezone to Europe/Budapest
-ENV TZ Europe/Budapest
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ENV TZ=Europe/Budapest
+RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
 
 EXPOSE 10389
 
