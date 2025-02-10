@@ -1,2 +1,3 @@
-docker build -t docker-registry:5000/ldap:latest .
-docker push docker-registry:5000/ldap:latest
+docker build -t docker.io/petyaba/ldap:1.1.0 -t docker.io/petyaba/ldap:latest .
+docker push docker.io/petyaba/ldap:1.1.0
+docker push docker.io/petyaba/ldap:latest
