@@ -95,18 +95,24 @@ objectClass: groupOfNames
 cn: Admin
 member: uid=adadmin,ou=Users,dc=perit,dc=hu
 
+dn: CN=Manager,OU=Security Groups,DC=perit,DC=hu
+objectClass: top
+objectClass: groupOfNames
+cn: Manager
+member: uid=admanager,ou=Users,dc=perit,dc=hu
+
 dn: CN=Editor,OU=Security Groups,DC=perit,DC=hu
 objectClass: top
 objectClass: groupOfNames
 cn: Editor
-member: uid=adadmin,ou=Users,dc=perit,dc=hu
+member: uid=admanager,ou=Users,dc=perit,dc=hu
 member: uid=adeditor,ou=Users,dc=perit,dc=hu
 
 dn: CN=Approver,OU=Security Groups,DC=perit,DC=hu
 objectClass: top
 objectClass: groupOfNames
 cn: Approver
-member: uid=adadmin,ou=Users,dc=perit,dc=hu
+member: uid=admanager,ou=Users,dc=perit,dc=hu
 member: uid=adeditor,ou=Users,dc=perit,dc=hu
 member: uid=adapprover,ou=Users,dc=perit,dc=hu
 
@@ -114,7 +120,7 @@ dn: CN=Viewer,OU=Security Groups,DC=perit,DC=hu
 objectClass: top
 objectClass: groupOfNames
 cn: Viewer
-member: uid=adadmin,ou=Users,dc=perit,dc=hu
+member: uid=admanager,ou=Users,dc=perit,dc=hu
 member: uid=adeditor,ou=Users,dc=perit,dc=hu
 member: uid=adapprover,ou=Users,dc=perit,dc=hu
 member: uid=adviewer,ou=Users,dc=perit,dc=hu
@@ -139,6 +145,21 @@ sAMAccountName: adadmin
 #userPrincipalName: adadmin@perit.hu
 userPassword: adadmin
 memberOf: CN=Admin,OU=Security Groups,DC=perit,DC=hu
+
+# admanager
+dn: uid=admanager,ou=Users,dc=perit,dc=hu
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: simulatedMicrosoftSecurityPrincipal
+objectCategory: User
+cn: Manager User
+sn: admanager
+uid: admanager
+sAMAccountName: admanager
+#userPrincipalName: admanager@perit.hu
+userPassword: admanager
+memberOf: CN=Manager,OU=Security Groups,DC=perit,DC=hu
 memberOf: CN=Editor,OU=Security Groups,DC=perit,DC=hu
 memberOf: CN=Approver,OU=Security Groups,DC=perit,DC=hu
 memberOf: CN=Viewer,OU=Security Groups,DC=perit,DC=hu
